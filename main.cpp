@@ -24,6 +24,8 @@ int main() {
 
     int choice;
 do {
+    interface->printMsg("Loading from file does not work! :)");
+
     interface->printMsg("\n\n");
     interface->printMsg("\tWitamy w grze w statki!\n");
     interface->printMsg("\tWybierz co bys chcial zrobic:");
