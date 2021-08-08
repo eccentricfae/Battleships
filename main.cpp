@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
  * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
- * @brief Main source file for the Battleships game. <br>Also available at: https://github.com/Tinuloth/Battleships.git
+ * @brief Main source file for the Battleships game. <br>Also available at: https://github.com/Tinuloth/Battleships
  * 
  * @details detailed here if not then delete
  * 
