@@ -11,6 +11,7 @@
 				"Player.cpp",
 				"AIPlayer.cpp",
 				"Ships.cpp",
+				"Interface.cpp",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
 			],
