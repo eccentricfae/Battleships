@@ -1,0 +1,16 @@
+- W gre gra dwoje graczy (tutaj gracz i komputer)
+- Kazdy z graczy posiada dwie plansze o wymiarach 10x10 pol. Wiersze oznaczone sa poprzez litery od A do J, a kolumny poprzez cyfro od 0 do 9.
+- Pierwsza plansza przeznaczona jest na polozenie swoich statkow i monitorowanie czy przeciwnik trafil w okret
+- Druga plansza przeznaczona jest na zaznaczanie swoich strzalow, i tych trafionych i tych ktore nie trafily
+- Statki ustawiane sa w pionie albo poziomie. Statki nie moga sie stykac w zaden sposob
+- Sa 4 rodzaje statkow:
+	- carrier - piecio polowy statek - max 2 pieces
+	- battleship - cztero polowy statek - max 3
+	- destroyer - troj polowy statek - max 4
+	- patrol boat - dwu polowy statek - max 5
+- max 7? statkow na gracza (gracze musza miec tyle samo statkow)
+- gra polega na oddawaniu strzalow, tj zgadywaniu gdzie na planszy przeciwnika znajduja sie ich okrety
+- strzaly oddaje sie naprzemiennie
+- gdy przeciwnik trafi w okret nalezy go o tym poinformowac. gdy okret zostanie zatopiony nalezy przeciwnika o tym  poinformowac
+- gdy trafi sie w okret przeciwnika oddaje sie strzaly poza kolejka do momentu chybienia. po chybieniu strzalu kolejka wraca do normy
+- wygrywa ten ktory pierwszy zatopi wszystkie okrety przeciwnika.

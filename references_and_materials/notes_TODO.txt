@@ -1,0 +1,36 @@
+NOTES:
+    - make_pair can implcicitly deduce types of passed arguments;
+
+    - // in configuration: build from all .cpp files
+    - ? how to implement ships?:
+        - which function is supposed to be pure virtual? (something to do with saving to file
+            would be pretty logical imo)
+        - ? exception handling inside the aforementioned function?
+    - interface:
+        - funkcja ktora przyjmuje od uzytkownika path to file 
+    - exceptions:
+        - error handling with exceptions in function (method) that read user input
+            - coordinates, menu, loading fom the file
+    - ? saving and loading:
+        - the boards just direclty print to file? 
+
+TODO:
+    - delete "void print()" from ships and choose other pure virtual function
+    - document everything:
+        - note that you are using board typedef'ed as std::array<stdd::array<int, 10>, 10>
+        - file docs for main (and possibly for all header files?)
+    - at the end:
+        - check qualifiers (ex. const) for each method
+        - write instructions
+        - write rules (separate from instructions or not?)
+        - check where what libraries are included and delete those that arent necessary
+
+LEARN:
+    - why static member data cannot be initialized inside the class but has to be in cpp file
+    - std::array learn about it
+
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+New
+
+    - typedef's Coords n Board in which file
+    - Ships: static int howManyCreated (counter) for AI copying the ships from the user
