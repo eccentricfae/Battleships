@@ -1,12 +1,13 @@
 /**
  * @file Interface.h
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @brief Header file for the implementation of the "Input/Output Interface" class
+ * 
+ * @version 0.9
  * @date 2021-08-08
  * 
- * @copyright Copyright (c) 2021
- * 
  */
+
+#include <iostream>
 
 // something here

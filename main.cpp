@@ -1,15 +1,20 @@
 /**
  * @file main.cpp
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @brief Main source file for the Battleships game. <br>Also available at: https://github.com/Tinuloth/Battleships.git
+ * 
+ * @details detailed here if not then delete
+ * 
+ * @version 0.9
  * @date 2021-08-08
  * 
- * @copyright Copyright (c) 2021
- * 
  */
-
+// ! Do I need the iostream here?
 #include <iostream>
+
+#include "Player.h"
+#include "AIPlayer.h"
+#include "Interface.h"
 
 using namespace std;
 
