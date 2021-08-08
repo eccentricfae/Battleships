@@ -1,10 +1,10 @@
 /**
  * @file main.cpp
- * @author Adrian Zaba (adrizab055@student.polsl.pl)
+ * @author Adrian Zaba (adrianzabax@gmail.com)
  * @brief brief desc
  * @details description
- * @version 1.0
- * @date 2021-07-08
+ * @version 0.5
+ * @date 2021-08-06
  */
 
 #include <iostream>

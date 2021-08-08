@@ -1,6 +1,7 @@
 #include "AIPlayer.h"
 
 AIPlayer::AIPlayer(InterfaceIO * i) : Player() {
+    interface = i;
     srand(time(0));
     initShips();
     shipsLeft = 7;
