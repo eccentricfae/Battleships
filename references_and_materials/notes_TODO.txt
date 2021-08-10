@@ -31,6 +31,13 @@ LEARN:
 
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 New
-
+    - statically 7 ships always or maybe more or less (user choice when to stop (with some upper bound))
     - typedef's Coords n Board in which file
     - Ships: static int howManyCreated (counter) for AI copying the ships from the user
+    - @throw / @exception - in the documentation for things that throw?
+    - in main: throw everything you can into functions so that it looks clean and can easily be modified!
+    - przy deklaracji nowych wskaznikow ustawiaj je na poczatku na nullptr (i nie wiem czy przy delete (something) tez nie ustawiac na nullptr potem?)
+    - the rule of 5
+    - pointers vs references in functions?
+    - templates gdzies wcisnac?
+    
