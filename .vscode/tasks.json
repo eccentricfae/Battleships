@@ -10,7 +10,11 @@
 				"${file}",
 				"Player.cpp",
 				"AIPlayer.cpp",
-				"Ships.cpp",
+				"Ship.cpp",
+				"Battleship.cpp",
+				"Carrier.cpp",
+				"Destroyer.cpp",
+				"PatrolBoat.cpp",
 				"Interface.cpp",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
