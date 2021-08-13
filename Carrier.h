@@ -1,11 +1,25 @@
-/**
- * @file Carrier.h
- * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
- * @brief 
- * @version 0.9
- * @date 2021-08-10
- */
-
+#pragma once
 #include "Ship.h"
 
-//something here
+/**
+ * @class Carrier
+ * @brief Class that represents a carrier-type ship that is 5 fields long.
+ * @see Ship
+ */
+class Carrier : public Ship {
+private:
+    /**
+     * @brief Variable that stores the information of: how many objects of Carrier class exist.
+     */
+    static int carrierCounter;
+
+public:
+    // ! static bool canBeCreated(); if this is to be implemeted -> define it in .cpp file
+
+    /**
+     * @brief Construct a new Carrier object, that is a 5 board-fields-long ship.
+     */
+    Carrier();
+
+    ~Carrier();
+};

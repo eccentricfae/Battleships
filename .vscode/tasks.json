@@ -15,7 +15,7 @@
 				"Carrier.cpp",
 				"Destroyer.cpp",
 				"PatrolBoat.cpp",
-				"Interface.cpp",
+				"IConsole.cpp",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
 			],

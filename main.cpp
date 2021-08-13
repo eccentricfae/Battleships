@@ -14,12 +14,14 @@
 
 #include "Player.h"
 #include "AIPlayer.h"
-#include "Interface.h"
+#include "IConsole.h"
 
 using namespace std;
 
 int main() {
-    cout << "Hello World\n";
+
+    //InterfaceIO * interface = new IConsole;
+    //interface->printText("Hello World");
 
     return 0;
 }

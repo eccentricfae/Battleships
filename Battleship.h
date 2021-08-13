@@ -1,12 +1,26 @@
-/**
- * @file Battleship.h
- * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
- * @brief 
- * @version 0.9
- * @date 2021-08-10
- * 
- */
-
+#pragma once
 #include "Ship.h"
 
-//
+/**
+ * @class Battleship
+ * @brief Class that represents a battleship-type ship, that is 4 board-fields long.
+ * @see Ship
+ */
+class Battleship : public Ship {
+private:
+    /**
+     * @brief Variable that stores the information of: how many objects of Battleship class exist.
+     */
+    static int battleshipCounter;
+
+public:
+
+    // ! static bool canBeCreated();
+
+    /**
+     * @brief Construct a new Battleship object, that is a 4 board-fields-long ship.
+     */
+    Battleship();
+
+    ~Battleship();
+};
