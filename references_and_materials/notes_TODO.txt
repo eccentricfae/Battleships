@@ -1,29 +1,50 @@
 NOTES:
     - make_pair can implcicitly deduce types of passed arguments;
 
-    - // in configuration: build from all .cpp files
+    - make sure all the .cpp files are in the configuration file;
+    - typedef's Coords n Board in which file??
+    - przy deklaracji nowych wskaznikow ustawiaj je na poczatku na nullptr (i nie wiem czy przy delete (something) tez nie ustawiac na nullptr potem?)
+    
     - ? how to implement ships?:
-        - which function is supposed to be pure virtual? (something to do with saving to file
-            would be pretty logical imo)
-        - ? exception handling inside the aforementioned function?
-    - interface:
-        - funkcja ktora przyjmuje od uzytkownika path to file 
+        - pure virtual destructor
+        - ? exception handling inside the aforementioned function? // note: IDK what i was thinking, prolly ignore this
+        - pure virtual destructor in Ship class will allow for that class to be absract without forcing to make any stupid overrides in the derived classes
+
     - exceptions:
         - error handling with exceptions in function (method) that read user input
             - coordinates, menu, loading fom the file
+        - Ship::setHleath() throws?
+
     - ? saving and loading:
         - the boards just direclty print to file? 
 
 TODO:
-    - delete "void print()" from ships and choose other pure virtual function
+    - ? should class documentation be this fucking long? (add detailed description to classes?? jak ma milosz)
+    - check if IConsole poprawnie napisalem (czy dziala jak nalezy, szczegolnie printBoard())
+    - Ship::getHealth() potrzebne czy wywalic?
+    - Ship::getCoordsVector() poitrzbne czy wywalic?
+    - InterfaceIO::clearScreen() potrzebne czy wywalic?
+    - Ships: static int howManyCreated (counter) for AI copying the ships from the user
+    - enum Directions (Player) and Letters (interface)
+    - make STATIC member function that checks if the data in the save file is in the correct format? (or maybe this should be a function of its own?)
+    - interface:
+        - funkcja ktora przyjmuje od uzytkownika path to file
+        - throws (exception) in that function?
+    - in main: throw everything you can into functions so that it looks clean and can easily be modified!
     - document everything:
         - note that you are using board typedef'ed as std::array<stdd::array<int, 10>, 10>
         - file docs for main (and possibly for all header files?)
+    - doxygen comments:
+        - brief and how to use in the header file
+        - how it works in the cpp file
+        - @throw / @exception - in the documentation for things that throw?
     - at the end:
         - check qualifiers (ex. const) for each method
         - write instructions
         - write rules (separate from instructions or not?)
         - check where what libraries are included and delete those that arent necessary
+        - see if typedef documentation is properly generated
+    - change colors in the console?
 
 LEARN:
     - why static member data cannot be initialized inside the class but has to be in cpp file
@@ -32,12 +53,14 @@ LEARN:
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 New
     - statically 7 ships always or maybe more or less (user choice when to stop (with some upper bound))
-    - typedef's Coords n Board in which file
-    - Ships: static int howManyCreated (counter) for AI copying the ships from the user
-    - @throw / @exception - in the documentation for things that throw?
-    - in main: throw everything you can into functions so that it looks clean and can easily be modified!
-    - przy deklaracji nowych wskaznikow ustawiaj je na poczatku na nullptr (i nie wiem czy przy delete (something) tez nie ustawiac na nullptr potem?)
     - the rule of 5
     - pointers vs references in functions?
     - templates gdzies wcisnac?
+    - refactoring from the guru site?
+
+Presentation NOTES:
+    - prepare something for pure virtual destructor (in class: Ship)
+    - <utility> in Ship for std::pair
+    - static virtual member function are not legal cuz if you call Ship::canBeCreated(), then how is computer supposed to know which ship are you trying to create?
+
     
