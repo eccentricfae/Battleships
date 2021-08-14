@@ -8,7 +8,8 @@
 	- battleship - cztero polowy statek - max 3
 	- destroyer - troj polowy statek - max 4
 	- patrol boat - dwu polowy statek - max 5
-- max 7? statkow na gracza (gracze musza miec tyle samo statkow)
+- max 8? statkow na gracza (gracze musza miec tyle samo statkow)
+	- static ships - 8 ships: 1 carrier, 2 battleships,  3 destroyers, 2 patrol boats.
 - gra polega na oddawaniu strzalow, tj zgadywaniu gdzie na planszy przeciwnika znajduja sie ich okrety
 - strzaly oddaje sie naprzemiennie
 - gdy przeciwnik trafi w okret nalezy go o tym poinformowac. gdy okret zostanie zatopiony nalezy przeciwnika o tym  poinformowac

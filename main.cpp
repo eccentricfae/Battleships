@@ -22,6 +22,7 @@ int main() {
 
     //InterfaceIO * interface = new IConsole;
     //interface->printText("Hello World");
+    Player::playersOwnBoard;
 
     return 0;
 }

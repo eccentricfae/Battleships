@@ -38,14 +38,14 @@ typedef std::pair<int, int> Coords;
 class InterfaceIO {
 public:
     /**
-     * @brief Member function that prints the playing board, using two iterators passed as arguments.
+     * @brief Member function that prints / updates the playing board, using two iterators passed as arguments.
      * 
      * @param iteratorBegin Iterator to the first element of the 2D-Array (Board.begin())
      * @param iteratorEnd  Iterator that signals the end of the container (Board.end())
      * @see Board
      * @see Player
      */
-    virtual void printBoard(Board::const_iterator & iteratorBegin, Board::const_iterator & iteratorEnd) = 0;
+    virtual void printBoard(const Board::const_iterator & iteratorBegin, const Board::const_iterator & iteratorEnd) = 0;
 
     /**
      * @brief Member function that prints text, passed as an arugment of type std::string.

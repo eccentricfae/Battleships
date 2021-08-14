@@ -9,6 +9,7 @@
  #pragma once
  #include <vector>
  #include <utility>
+ #include <string>
 
 /**
  * @brief Alias for std::pair<int, int>; used to indicate coordinates for the player boards in "Player" and "AIPlayer" classes.
@@ -38,6 +39,11 @@ protected:
     const int length;
 
     /**
+     * @brief Type of ship, like: "Carrier", "Battleship", etc.
+     */
+    std::string typeOfShip;
+
+    /**
      * @brief Vector of coordinates that the ship is placed on. Length of the vector is equal the length of the ship.
      */
     std::vector<Coords> ownCoords;
@@ -65,8 +71,11 @@ public:
      */
     inline int getHealth() const;
 
+    inline std::string getTypeOfShip() const;
+
     // ! inline std::vector<Coords>::const_iterator getCoordsVector() const;
 
+    // ! do i need it?
     /**
      * @brief Change the health of the ship.
      * 
@@ -114,4 +123,8 @@ int Ship::getLength() const {
 
 int Ship::getHealth() const {
     return health;
+}
+
+std::string Ship::getTypeOfShip() const {
+    return typeOfShip;
 }

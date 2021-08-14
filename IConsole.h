@@ -5,15 +5,15 @@
 class IConsole : public InterfaceIO {
 public:
     /**
-     * @brief Member function that prints the playing board, using two iterators passed as arguments.
+     * @brief Member function that prints the playing board, using two forward iterators passed as arguments.
      * 
      * @param iteratorBegin Iterator to the first element of the 2D-Array (Board.begin())
      * @param iteratorEnd  Iterator that signals the end of the container (Board.end())
      * @see Board
      * @see Player
      */
-    void printBoard(Board::const_iterator & iteratorBegin, Board::const_iterator & iteratorEnd) override;
-    // ^ define in .cpp
+    void printBoard(const Board::const_iterator & iteratorBegin, const Board::const_iterator & iteratorEnd) override;
+    // ^ check if works
 
     /**
      * @brief Member function that prints text, passed as an arugment of type std::string (no new line character).
@@ -32,9 +32,6 @@ public:
      * @note This function can be called without providing the range arguments, so it would function as a function that just reads an integer from the user, not checking for range.
     */
     int inputInt(const int & firstElementInRange = INT_MIN, const int & lastElementInRange = INT_MAX) override;
-    // ^ define in .cpp
-    // in .cpp do not redefine default arguments! you can imply them like this:
-    // int inputInt(const int & firstElementInRange /*= INT_MIN*/, const int & lastElementInRange /*= INT_MAX*/)
 
     /**
      * @brief Member function that reads user input and returns coordinates to be used with the player board.
@@ -44,7 +41,6 @@ public:
      * @throws std::invalid_argument If the user inputs data that isn't in the proper format as to be used as board coordinates, the function will throw an exception.
      */
     Coords inputCoordinates() override;
-    // ^ define in .cpp
 
     /**
      * @brief Member function that prints instructions of how to play the Battleships game, and use the program.

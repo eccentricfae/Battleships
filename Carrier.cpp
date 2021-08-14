@@ -8,6 +8,7 @@ int Carrier::carrierCounter = 0;
  */
 Carrier::Carrier() : Ship(5) {
     carrierCounter++;
+    typeOfShip = "Carrier";
 }
 
 Carrier::~Carrier() {
