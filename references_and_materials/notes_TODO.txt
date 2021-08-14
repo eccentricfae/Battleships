@@ -1,6 +1,11 @@
-NOTES:
-    - make_pair can implcicitly deduce types of passed arguments;
+WHAT I LEFT ON: 
+    :) check player and aiplayer for // !
+    :) check player and aiplayer for stuff that i might've missed
+    :) get ready to main.cpp
+    :) test everything?
+    :) review pull request
 
+NOTES:
     - make sure all the .cpp files are in the configuration file;
     - typedef's Coords n Board in which file??
     - przy deklaracji nowych wskaznikow ustawiaj je na poczatku na nullptr (i nie wiem czy przy delete (something) tez nie ustawiac na nullptr potem?)
@@ -19,21 +24,30 @@ NOTES:
         - the boards just direclty print to file? 
 
 TODO:
-    - ? should class documentation be this fucking long? (add detailed description to classes?? jak ma milosz)
-    - check if IConsole poprawnie napisalem (czy dziala jak nalezy, szczegolnie printBoard())
-    - Ship::getHealth() potrzebne czy wywalic?
-    - Ship::getCoordsVector() poitrzbne czy wywalic?
-    - InterfaceIO::clearScreen() potrzebne czy wywalic?
-    - Ships: static int howManyCreated (counter) for AI copying the ships from the user
-    - enum Directions (Player) and Letters (interface)
-    - make STATIC member function that checks if the data in the save file is in the correct format? (or maybe this should be a function of its own?)
-    - interface:
+    - Player:
+        - include <iterator> or not?
+        - enum Directions (Player)
+    - Ships:
+        - Ship:: -> IF DYNAMICALLY CREATED / CHOSEN SHIP TYPES (LIKE IN PREVIOUS VERSION, NO THE CLASSIC LINE-UP VERSION) THEN IMPLEMENT:
+                - static canBeCreated() in ship classes
+            - remove static counters if ships are placed statically
+            - Ship::getHealth() potrzebne czy wywalic?
+            - Ship::getCoordsVector() poitrzbne czy wywalic?
+    - Interface:
+        - check if IConsole poprawnie napisalem (czy dziala jak nalezy, szczegolnie printBoard())
+        - InterfaceIO::clearScreen() potrzebne czy wywalic?
         - funkcja ktora przyjmuje od uzytkownika path to file
-        - throws (exception) in that function?
+            - throws (exception) in that function?
+        -
+    - ? should class documentation be this fucking long? (add detailed description to classes?? jak ma milosz)
+    
+    
+    - Ships: static int howManyCreated (counter) for AI copying the ships from the user
+    - make STATIC member function that checks if the data in the save file is in the correct format? (or maybe this should be a function of its own?)
     - in main: throw everything you can into functions so that it looks clean and can easily be modified!
     - document everything:
         - note that you are using board typedef'ed as std::array<stdd::array<int, 10>, 10>
-        - file docs for main (and possibly for all header files?)
+        - file docs for main.cpp (and possibly for all header files?)
     - doxygen comments:
         - brief and how to use in the header file
         - how it works in the cpp file
@@ -62,5 +76,7 @@ Presentation NOTES:
     - prepare something for pure virtual destructor (in class: Ship)
     - <utility> in Ship for std::pair
     - static virtual member function are not legal cuz if you call Ship::canBeCreated(), then how is computer supposed to know which ship are you trying to create?
+    - make_pair can implcicitly deduce types of passed arguments;
+    - I used srand/rand and not the proper engines and distributions because I only needed trivial semi-random numbers
 
     

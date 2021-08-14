@@ -8,6 +8,7 @@ int Destroyer::destroyerCounter = 0;
  */
 Destroyer::Destroyer() : Ship(3) {
     destroyerCounter++;
+    typeOfShip = "Destroyer";
 }
 
 Destroyer::~Destroyer() {

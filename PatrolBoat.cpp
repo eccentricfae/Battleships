@@ -8,6 +8,7 @@ int PatrolBoat::patrolBoatCounter = 0;
  */
 PatrolBoat::PatrolBoat() : Ship(2) {
     patrolBoatCounter++;
+    typeOfShip = "Patrol Boat";
 }
 
 PatrolBoat::~PatrolBoat() {
