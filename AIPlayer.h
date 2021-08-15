@@ -9,6 +9,8 @@
  */
 #pragma once
 #include "Player.h"
+// !
+#include <iostream>
 
 class AIPlayer : public Player {
 private:
@@ -42,14 +44,24 @@ private:
      * @return int Random int from range [1, 4].
      * @note The main use of this function is: getting random direction when the AI tries to place its ships on its board.
      */
-    int generateRandomDirection() const;
+    inline int generateRandomDirection() const;
 
 public:
-    // ! docs
+    /**
+     * @brief Nullary constructor for the objects of class "AIPlayer".
+     */
     AIPlayer();
 
-    // ! docs
-    bool shootAt(Player * opponent) override;
+    ~AIPlayer() {}
+
+    /**
+     * @brief Member function that "shoots" at another player's board with ships. 
+     * 
+     * @param opponent Pointer to the opponent (object of class Player or derivative).
+     * @return int: 0 - missed; 1 - hit a ship; 2 - hit and sunk a ship!.
+     * @see getShotAt 
+     */
+    int shootAt(Player * opponent) override;
     
 };
 

@@ -15,8 +15,6 @@ private:
 
 public:
 
-    // ! static bool canBeCreated();
-
     /**
      * @brief Construct a new Battleship object, that is a 4 board-fields-long ship.
      */

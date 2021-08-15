@@ -10,7 +10,7 @@
 #include <array>
 #include <vector> 
 #include <utility> 
-#include <iterator> // ! do i need it?
+//#include <iterator> // ! do i need it?
 //#include <iostream> // ! do i need it?
 #include <fstream> // ! for saving to file i guess?
 #include <cstdlib>
@@ -30,14 +30,9 @@ typedef std::array<std::array<int, 10>, 10> Board;
  */
 typedef std::pair<int, int> Coords;
 
-// !
-// !
-// !
+
 // !    I SKIPPED ALL THINGS IN REGARDS TO FILE SAVING / LOADING
-// !
-// !
-// !
-// !
+
 
 /**
  * @class Player
@@ -122,7 +117,6 @@ protected:
      */
     bool canBePlaced(const Coords & bowCoords, const int & sternDirection, const int & lengthOfShip) const;
     
-
     /**
      * @brief Member function that checks whether the passed coordinates are NOT on the board (ownBoard / radar) (out of bounds of the 2d array).
      * 
@@ -178,6 +172,11 @@ protected:
     inline bool alreadyShotThere(const int & row, const int & col) const;
 
     /**
+     * @brief Protected nullary constructor that sets ownBoard and radar to 0, and sets shipsLeft to 0.
+     */
+    Player();
+
+    /**
      * @enum directions
      * @brief Enumeration of directions for more understandable code in regards to: ship placing functions.
      */
@@ -197,7 +196,7 @@ public:
      * 
      * @see InterfaceIO
      */
-    Player(InterfaceIO * i = nullptr);
+    Player(InterfaceIO * i);
 
     /**
      * @brief Destroy the Player object and all dynamically allocated member variables / objects.
@@ -215,12 +214,10 @@ public:
      * @brief Member function that "shoots" at another player's board with ships. 
      * 
      * @param opponent Pointer to the opponent (object of class Player or derivative).
-     * @return true Succesful shot! Continue firing!
-     * @return false Missed shot.
+     * @return int: 0 - missed; 1 - succesfully hit a ship; 2 - hit and sunk a ship!.
      * @see getShotAt 
      */
-    virtual bool shootAt(Player * opponent);
-    // ! override in ai
+    virtual int shootAt(Player * opponent);
 
     /**
      * @brief Member function that informs the player that the opponent has taken a shot.
@@ -231,6 +228,12 @@ public:
      */
     int getShotAt(const Coords & coords);
 
+    /**
+     * @brief Member function that checks if *this player lost the game (by checking how many ships *this player has left).
+     * 
+     * @return true Player lost the game (0 ships unsunken remaining).
+     * @return false Player didn't yet lose the game (at lesat 1 unsunken ship remaining).
+     */
     inline bool lost() const;
 
     /**

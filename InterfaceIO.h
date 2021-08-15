@@ -12,6 +12,7 @@
 #include <utility>
 #include <string>
 #include <limits>
+#include <exception>
 
 /**
  * @brief Alias for 2D std::array container, used as a board on which the game is played. 
@@ -53,8 +54,6 @@ public:
      * @param text Text to be printed.
      */
     virtual void printText(const std::string & text) = 0;
-
-    // ! virtual void clearScreen() = 0;
 
     /**
      * @brief Member function that reads user input and returns value of type int, if the input is in the given range.
