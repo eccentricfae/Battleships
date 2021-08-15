@@ -1,9 +1,7 @@
 WHAT I LEFT ON: 
-    :) check player and aiplayer for // !
-    :) check player and aiplayer for stuff that i might've missed
-    :) get ready to main.cpp
     :) test everything?
-    :) review pull request
+    :) write saveing/loading stuff
+    :) write instructions and rules
 
 NOTES:
     - make sure all the .cpp files are in the configuration file;
@@ -24,36 +22,27 @@ NOTES:
         - the boards just direclty print to file? 
 
 TODO:
-    - Player:
+    - Player::
         - include <iterator> or not?
-        - enum Directions (Player)
-    - Ships:
-        - Ship:: -> IF DYNAMICALLY CREATED / CHOSEN SHIP TYPES (LIKE IN PREVIOUS VERSION, NO THE CLASSIC LINE-UP VERSION) THEN IMPLEMENT:
-                - static canBeCreated() in ship classes
+    - Ships::
             - remove static counters if ships are placed statically
-            - Ship::getHealth() potrzebne czy wywalic?
             - Ship::getCoordsVector() poitrzbne czy wywalic?
     - Interface:
         - check if IConsole poprawnie napisalem (czy dziala jak nalezy, szczegolnie printBoard())
-        - InterfaceIO::clearScreen() potrzebne czy wywalic?
         - funkcja ktora przyjmuje od uzytkownika path to file
             - throws (exception) in that function?
         -
     - ? should class documentation be this fucking long? (add detailed description to classes?? jak ma milosz)
     
-    
-    - Ships: static int howManyCreated (counter) for AI copying the ships from the user
     - make STATIC member function that checks if the data in the save file is in the correct format? (or maybe this should be a function of its own?)
     - in main: throw everything you can into functions so that it looks clean and can easily be modified!
     - document everything:
-        - note that you are using board typedef'ed as std::array<stdd::array<int, 10>, 10>
         - file docs for main.cpp (and possibly for all header files?)
     - doxygen comments:
         - brief and how to use in the header file
         - how it works in the cpp file
         - @throw / @exception - in the documentation for things that throw?
     - at the end:
-        - check qualifiers (ex. const) for each method
         - write instructions
         - write rules (separate from instructions or not?)
         - check where what libraries are included and delete those that arent necessary

@@ -13,7 +13,7 @@ public:
      * @see Player
      */
     void printBoard(const Board::const_iterator & iteratorBegin, const Board::const_iterator & iteratorEnd) override;
-    // ^ check if works
+    // ! check if works
 
     /**
      * @brief Member function that prints text, passed as an arugment of type std::string (no new line character).

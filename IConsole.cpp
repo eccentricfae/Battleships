@@ -67,7 +67,7 @@ Coords IConsole::inputCoordinates() {
     std::string userInput;
     std::cin >> userInput;
     // ! delete or leave the "std::cin.fail()" part?
-    if (userInput.length() != 2 || std::cin.fail()) {
+    if (userInput.length() != 2) {
         throw std::invalid_argument("Podano zly argument!");
     }
 

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(InterfaceIO * i /*= nullptr*/) : shipsLeft(0), interface(i) {
+Player::Player() : shipsLeft(0) {
     // set the boards to 0
     for (Board::iterator it = ownBoard.begin(); it != ownBoard.end(); it++) {
         it->fill(0);
@@ -8,9 +8,10 @@ Player::Player(InterfaceIO * i /*= nullptr*/) : shipsLeft(0), interface(i) {
     for (Board::iterator it = radar.begin(); it != radar.end(); it++) {
         it->fill(0);
     }
+}
 
-    // if interface = nullptr, then that means: AIPlayer class has called this constructor
-    if (interface == nullptr) { srand(time(0));}
+Player::Player(InterfaceIO * i) : Player() {
+    interface = i;
 
     initializePlacingShips();
 }
@@ -99,7 +100,7 @@ void Player::getShipPlacement(Ship * ship) {
             interface->printText("Podaj koordynaty gdzie chcesz zaczepic dziob statku: ");
             bowCoords = interface->inputCoordinates();
 
-            interface->printText("Podaj kierunek w jakim ma sie znajdowac rufa statku:");
+            interface->printText("Podaj kierunek w jakim ma sie znajdowac rufa statku:\n");
             interface->printText("1. W gore\n");
             interface->printText("2. W prawo\n");
             interface->printText("3. W dol\n");
@@ -142,7 +143,7 @@ void Player::placeShipOnTheBoard(const Coords & bowCoords, const int & sternDire
             break;
 
         case directions::west :
-            for (int col = bowCoords.first; col != bowCoords.second - ship->getLength(); col--) {
+            for (int col = bowCoords.second; col != bowCoords.second - ship->getLength(); col--) {
                 ownBoard[bowCoords.first][col] = 1;
                 ship->addCoords(std::make_pair(bowCoords.first, col));
             }
@@ -151,7 +152,20 @@ void Player::placeShipOnTheBoard(const Coords & bowCoords, const int & sternDire
     shipsLeft++;
 }
 
-// ! details
+
+/**
+ * @details This function takes 3 arguments and checks if a ship of length "lengthOfShip" can be placed there, according to the rules (each ship placed on consecutive empty fields;
+ *          no ships can touch each other - each field around the ship has to be empty as well). Depending on the provided direction of the stern of the ship (in respect to the
+ *          bow of the ship) a one of four chunks of code is executed.
+ *          Each chunk of code is responsible for checking if the ship can be placed.
+ *          In each chunk of code there are:<br>
+ *          3 main conditional statements:<br>
+ *              - currently chekced field is in the row/column where we want to place the ship,<br>
+ *              - currently checked field is not in the row/column where we want to place the ship and is out of bounds of the board,<br>
+ *              - currently checked field is not in the row/column where we want to place the ship and is not out of bounds of the board.<br>
+ *          2 special cases, unique to each chunk of code, that have something to do with trying to check if a field out of bounds of the board is empty (those 2 cases are a 
+ *          bug fix from previous version where you couldnt place ships on the first/last rows/columns). 
+ */
 bool Player::canBePlaced(const Coords & bowCoords, const int & sternDirection, const int & lengthOfShip) const {
     switch (sternDirection) {
         case directions::north:
@@ -205,7 +219,8 @@ bool Player::canBePlaced(const Coords & bowCoords, const int & sternDirection, c
 
                     if (row != bowCoords.first && isOutOfBounds(row, col)) {
                         // checking row adjecent to where we want to place the ship and it is out of bounds so no need to check that row
-                        row++;
+                        //row++;
+                        continue;
                     }
                     else if (row != bowCoords.first && !isOutOfBounds(row, col)) {
                         // checking row adjecent to where we want to place the ship, it is on the board
@@ -263,8 +278,9 @@ bool Player::canBePlaced(const Coords & bowCoords, const int & sternDirection, c
                         // bow of the ship "placed" on the last column -> no need to check the next column, no ships will be there
                         continue;
                     }
-                    else if (bowCoords.second == (lengthOfShip - 1) && col > 0) {
-                        // stern of the ship "placed" on the first column -> no need to check the previous column, no ships will be there 
+                    else if (bowCoords.second == (lengthOfShip - 1) && col < 0) {
+                        // stern of the ship "placed" on the first column -> no need to check the previous column, no ships will be there
+                        continue; 
                     }
 
                     if (row != bowCoords.first && isOutOfBounds(row, col)) {
@@ -318,7 +334,7 @@ void Player::printBoard(const int & whichBoard) const {
  *          Then the function calls getShotAt function to see if the shot was a miss, hit or hit and sunk.
  *          Lastly the function informs (by returning proper boolean value) whether the shot was a hit or a miss.
  */
-bool Player::shootAt(Player * opponent) {
+int Player::shootAt(Player * opponent) {
     Coords coords(-1, -1);
     bool firstIteration = true;
 
@@ -341,19 +357,19 @@ bool Player::shootAt(Player * opponent) {
     int result = opponent->getShotAt(coords);
 
     if (result == 0) {
-        // missed opponent's ships; mark a missed shot on the radar; inform that the player missed shot (return false)
+        // missed opponent's ships; mark a missed shot on the radar; inform that the player missed shot
         radar[coords.first][coords.second] = 2;
-        return false;
+        return 0;
     }
     else if (result == 1) {
-        // hit opponent's ship; mark a hit shot on the radar; inform that the player hit, so they can continue firing;
+        // hit opponent's ship; mark a hit shot on the radar; inform that the player hit, so they can continue firing
         radar[coords.first][coords.second] = 3;
-        return true;
+        return 1;
     }
     else {
-        // hit opponent's ship and SUNK IT; mark a hit shot on the radar; inform that the player hit, so they can 
+        // hit opponent's ship and SUNK IT; mark a hit shot on the radar; inform that the player hit, so they can continue firing
         radar[coords.first][coords.second] = 3;
-        return true;
+        return 2;
     }
 }
 

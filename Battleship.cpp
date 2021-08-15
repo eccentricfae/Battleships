@@ -8,7 +8,7 @@ int Battleship::battleshipCounter = 0;
  */
 Battleship::Battleship() : Ship(4) {
     battleshipCounter++;
-    typeOfShip = "Battleship";
+    typeOfShip = "Pancernik";
 }
 
 Battleship::~Battleship() {
