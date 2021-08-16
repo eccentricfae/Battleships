@@ -1,2 +1,0 @@
-Witamy w grze "Statki"!
-// rest here :)
