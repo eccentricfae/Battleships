@@ -1,11 +1,21 @@
+/**
+ * @file IConsole.h
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @brief Header file for the IConsole class
+ * 
+ * @version 1.0
+ * @date 2021-08-08
+ * 
+ */
 #pragma once
 #include "InterfaceIO.h"
 #include <iostream>
+#include <cstdlib>
 
 class IConsole : public InterfaceIO {
 public:
     /**
-     * @brief Member function that prints the playing board, using two forward iterators passed as arguments.
+     * @brief Member function that prints the playing board, using two iterators passed as arguments.
      * 
      * @param iteratorBegin Iterator to the first element of the 2D-Array (Board.begin())
      * @param iteratorEnd  Iterator that signals the end of the container (Board.end())
@@ -13,10 +23,9 @@ public:
      * @see Player
      */
     void printBoard(const Board::const_iterator & iteratorBegin, const Board::const_iterator & iteratorEnd) override;
-    // ! check if works
 
     /**
-     * @brief Member function that prints text, passed as an arugment of type std::string (no new line character).
+     * @brief Member function that prints text, passed as an arugment of type std::string (no new line character at the end).
      * 
      * @param text Text to be printed.
      */
@@ -34,6 +43,11 @@ public:
     int inputInt(const int & firstElementInRange = INT_MIN, const int & lastElementInRange = INT_MAX) override;
 
     /**
+     * @brief Member function that clears console.
+     */
+    inline void clearScreen() override;
+
+    /**
      * @brief Member function that reads user input and returns coordinates to be used with the player board.
      * 
      * @return Coords Coordinates read from the user input. 
@@ -41,6 +55,13 @@ public:
      * @throws std::invalid_argument If the user inputs data that isn't in the proper format as to be used as board coordinates, the function will throw an exception.
      */
     Coords inputCoordinates() override;
+
+    /**
+     * @brief Member function that reads user input of type std::string, used for getting the file path to the file containing saved game state.
+     * 
+     * @return std::string User input text.
+     */
+    std::string inputPathFile() override;
 
     /**
      * @brief Member function that prints instructions of how to play the Battleships game, and use the program.
@@ -59,4 +80,8 @@ public:
 
 void IConsole::printText(const std::string & text) {
     std::cout << text;
+}
+
+void IConsole::clearScreen() {
+    system("CLS");
 }

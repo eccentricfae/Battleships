@@ -3,24 +3,22 @@
  * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
  * @brief Header file for the implementation of the AIPlayer class used by the logic in the main.cpp file
  * 
- * @version 0.9
+ * @version 1.0
  * @date 2021-08-08
  * 
  */
 #pragma once
 #include "Player.h"
-// !
-#include <iostream>
 
 class AIPlayer : public Player {
 private:
     /**
-     * @brief Boolean that serves as a "memory" for the AI whether AI's last shot was a hit or miss.
+     * @brief Boolean that serves as a "memory" whether AI's last shot was a hit or miss.
      */
     bool lastShotHit;
 
     /**
-     * @brief Variable that serves as a "memory" for the AI, about where the AI's last shot was.
+     * @brief Variable that serves as a "memory" about where the AI's last shot was.
      */
     Coords lastShotCoords;
 
@@ -48,9 +46,19 @@ private:
 
 public:
     /**
-     * @brief Nullary constructor for the objects of class "AIPlayer".
+     * @brief Construct a new AIPlayer object.
+     * 
+     * @param i Pointer to the object serving as an input/output interface.
      */
-    AIPlayer();
+    AIPlayer(InterfaceIO * i);
+
+    /**
+     * @brief Construct a new AIPlayer object from the saved game state file.
+     * 
+     * @param i Pointer to the object serving as an input/output interface.
+     * @param file Object serving as the anchor of the file from which the game/object state is to be loaded.
+     */
+    AIPlayer(InterfaceIO * i, std::fstream & file);
 
     ~AIPlayer() {}
 
@@ -63,6 +71,13 @@ public:
      */
     int shootAt(Player * opponent) override;
     
+    /**
+     * @brief Save current state of *this object to a file.
+     * 
+     * @param file Object serving as the anchor of the file to which the state of the class is to be saved.
+     */
+    void saveClassToFile(std::fstream & file) const override;
+
 };
 
 Coords AIPlayer::generateRandomCoords() const {

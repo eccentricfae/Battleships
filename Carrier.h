@@ -1,3 +1,10 @@
+/**
+ * @file Carrier.h
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl) 
+ * @version 1.0
+ * @date 2021-08-08
+ * 
+ */
 #pragma once
 #include "Ship.h"
 
@@ -7,14 +14,7 @@
  * @see Ship
  */
 class Carrier : public Ship {
-private:
-    /**
-     * @brief Variable that stores the information of: how many objects of Carrier class exist.
-     */
-    //static int carrierCounter;
-
 public:
-
     /**
      * @brief Construct a new Carrier object, that is a 5 board-fields-long ship.
      */

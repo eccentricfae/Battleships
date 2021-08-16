@@ -1,8 +1,17 @@
+/**
+ * @file Ship.cpp
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @brief Source file for the Ship.h header file.
+ * 
+ * @version 1.0
+ * @date 2021-08-08
+ * 
+ */
 #include "Ship.h"
 
-void Ship::addCoords(const Coords & ref) {
-    if (ownCoords.size() < length) {
-        ownCoords.emplace_back(ref);
+void Ship::setSternDirection(const int & sternDirection) {
+    if (sternDirection > 0 && sternDirection < 5) {
+        this->sternDirection = sternDirection;
     }
 }
 
