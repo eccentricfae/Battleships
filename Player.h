@@ -3,19 +3,16 @@
  * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
  * @brief Header file for the implementation of the Player class.
  * 
- * @version 0.9
+ * @version 1.0
  * @date 2021-08-08
  */
 #pragma once
 #include <array>
 #include <vector> 
 #include <utility> 
-//#include <iterator> // ! do i need it?
-//#include <iostream> // ! do i need it?
-#include <fstream> // ! for saving to file i guess?
+#include <fstream>
 #include <cstdlib>
 #include <ctime>
-
 #include "ShipsClasses.h"
 #include "IConsole.h"
 
@@ -31,13 +28,10 @@ typedef std::array<std::array<int, 10>, 10> Board;
 typedef std::pair<int, int> Coords;
 
 
-// !    I SKIPPED ALL THINGS IN REGARDS TO FILE SAVING / LOADING
-
-
 /**
  * @class Player
- * @brief Class responsible for majority of the game logic in the "Battleships" game.
- * @details here?
+ * @brief Class used to represent the player (user) of the game (program).
+ *        Class responsible for majority of the game logic in the "Battleships" game.
  * @see AIPlayer
  * @see Ship
  * @see InterfaceIO 
@@ -86,6 +80,13 @@ protected:
      * @brief Begins the process of placing 8 ships on the player's board "ownBoard".
      */
     void initializePlacingShips();
+    
+    /**
+     * @brief Loads the ships from the file with saved game.
+     * 
+     * @param file File from which the ships of the player are to be loaded.
+     */
+    void initializePlacingShips(std::fstream & file); 
 
     /**
      * @brief Member function that asks the player where on the board (ownBoard) they would like to place the ship (passed by a pointer).
@@ -172,7 +173,7 @@ protected:
     inline bool alreadyShotThere(const int & row, const int & col) const;
 
     /**
-     * @brief Protected nullary constructor that sets ownBoard and radar to 0, and sets shipsLeft to 0.
+     * @brief Protected nullary constructor that sets ownBoard and radar to 0, and sets shipsLeft to 0 and interface to nullptr.
      */
     Player();
 
@@ -192,11 +193,19 @@ public:
     /**
      * @brief Construct a new Player object.
      * 
-     * @param i Pointer to the object responsible for being the interface engine (of class derived from InterfaceIO abstract class).
+     * @param i Pointer to the object responsible for being the input/output interface.
      * 
      * @see InterfaceIO
      */
     Player(InterfaceIO * i);
+
+    /**
+     * @brief Load and construct the Player object from file with saved game.
+     * 
+     * @param i Pointer to the object responsible for being the input/output interface.
+     * @param file Object serving as the anchor of the file from which the game/object state is to be loaded.
+     */
+    Player(InterfaceIO * i, std::fstream & file);
 
     /**
      * @brief Destroy the Player object and all dynamically allocated member variables / objects.
@@ -204,14 +213,14 @@ public:
     virtual ~Player();
 
     /**
-     * @brief Member function that prints (or updates) the "ownBoard" or "radar" player board on the screen. 
+     * @brief Print (or update) the "ownBoard" or "radar" player board on the screen. 
      * 
      * @param whichBoard Argument which board to print: 1 for "ownBoard"; 2 for "radar".
      */
     void printBoard(const int & whichBoard) const;
 
     /**
-     * @brief Member function that "shoots" at another player's board with ships. 
+     * @brief Shoot at the opponent's board with ships. 
      * 
      * @param opponent Pointer to the opponent (object of class Player or derivative).
      * @return int: 0 - missed; 1 - succesfully hit a ship; 2 - hit and sunk a ship!.
@@ -220,7 +229,7 @@ public:
     virtual int shootAt(Player * opponent);
 
     /**
-     * @brief Member function that informs the player that the opponent has taken a shot.
+     * @brief Member function that informs the player that the opponent has taken a shot at their board.
      * 
      * @param coords Coordinates of the opponent's shot. 
      * @return int Result of the shot: int = 0 - opponent missed; int = 1 - opponent hit; int = 2 - opponent hit and sunk a ship
@@ -244,6 +253,13 @@ public:
         playersOwnBoard = 1,
         radarBoard = 2,
     };
+
+    /**
+     * @brief Save current state of *this object to a file.
+     * 
+     * @param file Object serving as the anchor of the file to which the state of the class is to be saved.
+     */
+    virtual void saveClassToFile(std::fstream & file) const;
 
 };
 

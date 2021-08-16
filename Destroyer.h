@@ -1,3 +1,10 @@
+/**
+ * @file Destroyer.h
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @version 1.0
+ * @date 2021-08-08
+ * 
+ */
 #pragma once
 #include "Ship.h"
 
@@ -7,13 +14,6 @@
  * @see Ship
  */
 class Destroyer : public Ship {
-private:
-    /**
-     * @brief Variable that stores the information of: how many objects of Destroyer class exist.
-     * 
-     */
-    static int destroyerCounter;
-
 public:
     /**
      * @brief Construct a new Destroyer object, that is a 3 board-fields-long ship.

@@ -1,6 +1,15 @@
+/**
+ * @file Player.cpp
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @brief Source file for the Player.h header file.
+ * 
+ * @version 1.0
+ * @date 2021-08-08
+ * 
+ */
 #include "Player.h"
 
-Player::Player() : shipsLeft(0) {
+Player::Player() : shipsLeft(0), interface(nullptr) {
     // set the boards to 0
     for (Board::iterator it = ownBoard.begin(); it != ownBoard.end(); it++) {
         it->fill(0);
@@ -17,6 +26,48 @@ Player::Player(InterfaceIO * i) : Player() {
 }
 
 /**
+ * @details Constructor delegates the loading of ships to initializePlacingShips(std::fstream&) function, then reads from file how many unsunken ships are supposed to be left.
+ *          Aftter that the constructor loads the "ownBoard" and then "radar" boards from the file.
+ * 
+ * @see initializePlacingShip
+ */
+Player::Player(InterfaceIO * i, std::fstream & file) : interface(i) {
+    std::string currentLine;
+    
+    initializePlacingShips(file);
+    
+    // load shipsleft from file
+    getline(file, currentLine);
+    shipsLeft = (int)(currentLine[0] - '0');
+
+    // load ownBoard from file
+    Board::iterator itRow;
+    std::array<int, 10>::iterator itCol;
+    int columnInFile;
+
+    for (itRow = ownBoard.begin(); itRow != ownBoard.end(); itRow++) {
+        getline(file, currentLine);
+        columnInFile = 0;
+
+        for (itCol = itRow->begin(); itCol != itRow->end(); itCol++) {
+            *itCol = (int)(currentLine[columnInFile] - '0');
+            columnInFile++;
+        }
+    }
+
+    // load radar from file
+    for (itRow = radar.begin(); itRow != radar.end(); itRow++) {
+        getline(file, currentLine);
+        columnInFile = 0;
+
+        for (itCol = itRow->begin(); itCol != itRow->end(); itCol++) {
+            *itCol = (int)(currentLine[columnInFile] - '0');
+            columnInFile++;
+        }
+    }
+}
+
+/**
  * @details Function that initializes the placing of 8 ships on the "ownBoard". The function keeps track of how many ships have been placed, and then using that information
  *          it creates in place (at the end of the "playersShips" vector) new object of appropriate type (class). After creating a new object, the function calls "getShipPlacement"
  *          function, so that the newly created ship is placed on the board.
@@ -25,7 +76,6 @@ void Player::initializePlacingShips() {
     int shipsPlaced = 0;
     
     while (shipsPlaced < 8) {
-        //printBoard(boardId::playersOwnBoard);
 
         switch(shipsPlaced) {
             case 0:
@@ -66,12 +116,76 @@ void Player::initializePlacingShips() {
 }
 
 /**
+ * @details Function reads 8 lines from the file with saved game state. For each line the function places a ship on the board according to data from the file,
+ *          and then sets that ship's health according to the data from the file.
+ */
+void Player::initializePlacingShips(std::fstream & file) {
+    int shipsPlaced = 0, shipsHealth, sternDirection;
+    std::string currentLine;
+    Coords bowCoords;
+
+    while (shipsPlaced < 8) {
+
+        std::getline(file, currentLine);
+        // get health from line
+        shipsHealth = (int)(currentLine[1] - '0');
+        // get bow coords
+        bowCoords.first = (int)(currentLine[2] - '0');
+        bowCoords.second = (int)(currentLine[3] - '0');
+        // get stern direction
+        sternDirection = (int)(currentLine[4] - '0');
+
+        switch(shipsPlaced) {
+            case 0:
+                //create new ship of type carrier
+                playersShips.emplace_back(new Carrier);
+                // place carrier
+                placeShipOnTheBoard(bowCoords, sternDirection, playersShips[shipsPlaced]);
+                break;
+            
+            case 1:
+            case 2:
+                // create new ship of type battleship
+                playersShips.emplace_back(new Battleship);
+                //place battleship
+                placeShipOnTheBoard(bowCoords, sternDirection, playersShips[shipsPlaced]);
+                break;
+            
+            case 3:
+            case 4:
+            case 5:
+                // create new ship of type destroyer
+                playersShips.emplace_back(new Destroyer);
+                //place destroyer
+                placeShipOnTheBoard(bowCoords, sternDirection, playersShips[shipsPlaced]);
+                break;
+            
+            case 6:
+            case 7:
+                // create new ship of type patrol boat
+                playersShips.emplace_back(new PatrolBoat);
+                //place patrol boat
+                placeShipOnTheBoard(bowCoords, sternDirection, playersShips[shipsPlaced]);
+                break;
+        }
+
+        // set the ship's health
+        playersShips[shipsPlaced]->setHealth(shipsHealth);
+
+        shipsPlaced++;
+    }
+    
+}
+
+/**
  * @details The function first prints player's "ownBoard" and informs what type of ship will be placed.
  *          Then in a loop (until appropriate location is input by the user) location for the ship is asked.
  *          If appropriate location is input, the function calls "placeShipOnTheBoard()" function to place the ship, on the board, in the location that was given.
  *          Inside the function correct exception handling is implemented because of calling functions that throw (interface->inputCoordinates and interface->inputInt).
  */
 void Player::getShipPlacement(Ship * ship) {
+    // ! clearscreen
+    interface->clearScreen();
     printBoard(boardId::playersOwnBoard);
     
     Coords bowCoords; // coords where to place the bow of the ship
@@ -109,7 +223,7 @@ void Player::getShipPlacement(Ship * ship) {
 
             firstIteration = false;
         }
-        catch (std::invalid_argument & e) {
+        catch (const std::invalid_argument & e) {
             errorOccured = true;
             errorMessage = e.what();
         }
@@ -149,9 +263,9 @@ void Player::placeShipOnTheBoard(const Coords & bowCoords, const int & sternDire
             }
             break;
     }
+    ship->setSternDirection(sternDirection);
     shipsLeft++;
 }
-
 
 /**
  * @details This function takes 3 arguments and checks if a ship of length "lengthOfShip" can be placed there, according to the rules (each ship placed on consecutive empty fields;
@@ -348,7 +462,7 @@ int Player::shootAt(Player * opponent) {
         try {
             coords = interface->inputCoordinates();
         }
-        catch (std::invalid_argument & e) {
+        catch (const std::invalid_argument & e) {
             interface->printText(e.what());
         }
     } while ((coords.first == -1 || coords.second == -1) || alreadyShotThere(coords));
@@ -390,7 +504,7 @@ int Player::getShotAt(const Coords & coords) {
         ownBoard[coords.first][coords.second] = 3;
 
         // find which ship has been hit
-        Ship * hitShip;
+        Ship * hitShip = nullptr;
         for (Ship* ship : playersShips) {
             if (ship->isOnThoseCoordinates(coords)) {
                 hitShip = ship;
@@ -408,4 +522,45 @@ int Player::getShotAt(const Coords & coords) {
             return 1;
         }
     }
+}
+
+/**
+ * @details Function writes to file first information needed to later construct/load ships from saved game file, ship's: length; health; bow coordinates;
+ *          direction of its stern in respect to the bow of the ship.
+ *          Then the function writes to file how many ships are unsunken, and lastly prints current layout of the "ownBoard" and "radar" player boards. 
+ */
+void Player::saveClassToFile(std::fstream & file) const {
+    //save ships to file
+    for (Ship* ship : playersShips) {
+        //save length and health
+        file << ship->getLength() << ship->getHealth();
+
+        //save that ship's bowCoords and sternDirction
+        file << ship->getBowCoords().first << ship->getBowCoords().second << ship->getSternDirection();
+        
+        file << '\n';
+    }
+
+    //save shipsLeft to file
+    file << shipsLeft << '\n';
+
+    Board::const_iterator itRow;
+    std::array<int, 10>::const_iterator itCol;
+
+    //save ownBoard to file
+    for (itRow = ownBoard.cbegin(); itRow != ownBoard.cend(); itRow++) {
+        for (itCol = itRow->cbegin(); itCol != itRow->cend(); itCol++) {
+            file << *itCol;
+        }
+        file << '\n';
+    }
+
+    //save radar to file
+    for (itRow = radar.cbegin(); itRow != radar.cend(); itRow++) {
+        for (itCol = itRow->cbegin(); itCol != itRow->cend(); itCol++) {
+            file << *itCol;
+        }
+        file << '\n';
+    }
+    
 }

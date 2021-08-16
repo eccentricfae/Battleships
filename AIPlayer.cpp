@@ -1,14 +1,32 @@
+/**
+ * @file AIPlayer.cpp
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
+ * @brief Source file for the AIPlayer.h header file.
+ * 
+ * @version 1.0
+ * @date 2021-08-08
+ */
 #include "AIPlayer.h"
 
-/**
- * @details This nullary constructor does not call Player(InterfaceIO*) but Player(), because of that constructor's default argument (nullptr), which in turn executes 
- *          fragment of code in Player::Player() constructor resposible for generating a seed for generating random numbers (not needed in Player class but very much needed in
- *          the AIPlayer class).
- */
-AIPlayer::AIPlayer() : Player() {
+AIPlayer::AIPlayer(InterfaceIO * i) : Player() {
+    interface = i;
     lastShotHit = false;
 
     initializePlacingShips();
+}
+
+AIPlayer::AIPlayer(InterfaceIO * i, std::fstream & file) : Player(i, file) {
+    std::string currentLine;
+
+    getline(file, currentLine);
+
+    // load lastShotHit from file
+    int lastShotHitInt = (int)(currentLine[0] - '0');
+    lastShotHit = (lastShotHitInt == 1) ? true : false;
+
+    // load lastShotCoords from file
+    lastShotCoords.first = (int)(currentLine[1] - '0');
+    lastShotCoords.second = (int)(currentLine[2] - '0');
 }
 
 /**
@@ -104,4 +122,12 @@ int AIPlayer::shootAt(Player * opponent) {
         lastShotHit = false; 
         return 2;
     }
+}
+
+void AIPlayer::saveClassToFile(std::fstream & file) const {
+    //save all the basic data
+    Player::saveClassToFile(file);
+
+    file << lastShotHit << lastShotCoords.first << lastShotCoords.second;
+
 }

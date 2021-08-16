@@ -1,8 +1,8 @@
 /**
  * @file Ships.h
+ * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
  * @brief Header file for the abstract class Ship.
- * 
- * @version 0.9
+ * @version 1.0
  * @date 2021-08-08
  */
 
@@ -12,15 +12,16 @@
  #include <string>
 
 /**
- * @brief Alias for std::pair<int, int>; used to indicate coordinates for the player boards in "Player" and "AIPlayer" classes.
+ * @brief Alias for std::pair<int, int>; used to indicate coordinates for the player's board in "Player" and "AIPlayer" classes.
  * @see Player
  */
  typedef std::pair<int, int> Coords;
 
 /**
  * @class Ship
- * @brief Abstract class used as a base class for derivitive ships (classes).
- * @details This abstract class implements majority of the functionality of the derivitive classes. The pure virtual function that makes it an abstract class is pure virtual destructor.
+ * @brief Abstract class used as an auxilliary class for the Player and AIPlayer classes. Base class for derivitive ship classes.
+ * @details This abstract class implements majority of the functionality of the derivitive classes. 
+ *          The pure virtual function that makes it an abstract class is a pure virtual destructor.
  * @see Carrier
  * @see Destroyer
  * @see Battleship
@@ -29,17 +30,23 @@
 class Ship {
 protected:
     /**
-     * @brief Health of a ship. Each type of ship has different amount of starting health. At the start the health is equal the length of a ship.
+     * @brief Health of a ship. Each type of ship has different amount of starting health. At the start of the game the health of a ship is equal to the length of that ship.
      */
     int health;
 
     /**
-     * @brief Length of a ship, measured by how many fields the ship takes on the board.
+     * @brief Length of a ship, measured by how many fields the ship takes up on the board.
      */
     const int length;
 
     /**
-     * @brief Type of ship, like: "Carrier", "Battleship", etc.
+     * @brief Direction (expressed as an integer) in which the stern of the ship is placed, compared to the bow of the same ship.
+     *        1 is North (up on the board), 2 is East (right on the board), 3 is South (down on the board), 4 is West (left on the board).
+     */
+    int sternDirection;
+
+    /**
+     * @brief Type of the ship, like: "Carrier", "Battleship", etc.
      */
     std::string typeOfShip;
 
@@ -55,7 +62,28 @@ public:
      * @param coordinates Coordinates that are to be assigned to the ship. 
      * @see ownCoords
      */
-    void addCoords(const Coords & coordinates);
+    inline void addCoords(const Coords & coordinates);
+
+    /**
+     * @brief Set the sternDirection field, that represents the direction in which the stern of the ship is placed in regard to the bow of the ship.
+     * 
+     * @param sternDirection Direction of the stern of the ship in regards to the bow of the ship.
+     */
+    void setSternDirection(const int & sternDirection);
+    
+    /**
+     * @brief Get the sternDirection field, that represents the direction in which the stern of the ship is placed in regard to the bow of the ship.
+     * 
+     * @return int Direction of the stern of the ship in regards to the bow of the ship.
+     */
+    inline int getSternDirection() const;
+    
+    /**
+     * @brief Get the coordinates of where the bow of this ship is placed on the board.
+     * 
+     * @return Coords Coordinates of the bow of the ship.
+     */
+    inline Coords getBowCoords() const;
 
     /**
      * @brief Get the length of the ship.
@@ -71,11 +99,13 @@ public:
      */
     inline int getHealth() const;
 
+    /**
+     * @brief  Get the type (name) of *this ship.
+     * 
+     * @return std::string Type of *this ship.
+     */
     inline std::string getTypeOfShip() const;
 
-    // ! inline std::vector<Coords>::const_iterator getCoordsVector() const;
-
-    // ! do i need it?
     /**
      * @brief Change the health of the ship.
      * 
@@ -107,7 +137,7 @@ public:
      * 
      * @param length Length of the created ship.
      */
-    Ship(int);
+    Ship(int length);
 
     /**
      * @brief Virtual destructor for the Ship class.
@@ -116,6 +146,16 @@ public:
     virtual ~Ship() = 0;
 
 };
+
+void Ship::addCoords(const Coords & ref) {
+    if (ownCoords.size() < length) {
+        ownCoords.emplace_back(ref);
+    }
+}
+
+int Ship::getSternDirection() const {
+    return sternDirection;
+}
 
 int Ship::getLength() const {
     return length;
@@ -127,4 +167,8 @@ int Ship::getHealth() const {
 
 std::string Ship::getTypeOfShip() const {
     return typeOfShip;
+}
+
+Coords Ship::getBowCoords() const {
+    return ownCoords[0];
 }

@@ -3,7 +3,7 @@
  * @author Adrian Zaba (adrianzabax@gmail.com || adrizab055@student.polsl.pl)
  * @brief Header file for the declaration of the "Input/Output Interface" abstract class.
  * 
- * @version 0.9
+ * @version 1.0
  * @date 2021-08-08
  */
 
@@ -21,7 +21,7 @@
 typedef std::array<std::array<int, 10>, 10> Board;
 
 /**
- * @brief Alias for std::pair<int, int>; used to indicate coordinates for the player boards in "Player" and "AIPlayer" classes.
+ * @brief Alias for a pair of integers (std::pair<int, int>); used to indicate coordinates for the player's board in "Player" and "AIPlayer" classes.
  * @see Player
  */
 typedef std::pair<int, int> Coords;
@@ -49,7 +49,7 @@ public:
     virtual void printBoard(const Board::const_iterator & iteratorBegin, const Board::const_iterator & iteratorEnd) = 0;
 
     /**
-     * @brief Member function that prints text, passed as an arugment of type std::string.
+     * @brief Member function that prints text on screen (text passed as an arugment of type std::string).
      * 
      * @param text Text to be printed.
      */
@@ -67,14 +67,11 @@ public:
      */
     virtual int inputInt(const int & firstElementInRange = INT_MIN, const int & lastElementInRange = INT_MAX) = 0;
 
-    // ! delete this function and just use the one above with INT_MIN INT_MAX as default arguments?
     /**
-     * @brief Member function that reads user input and returns value of type int.
-     * 
-     * @return int Integer number read from the user input.
-     * @throws std::invalid_argument If the user inputs argument of incorrect type, the function throws exception.
+     * @brief (for console style interfaces) Member function that "clears" console.
+     * @note If not implementing in-console-style interface, this function can be skipped.
      */
-    //virtual int inputInt() = 0;
+    virtual void clearScreen() {};
 
     /**
      * @brief Member function that reads user input and returns coordinates to be used with the player board.
@@ -86,12 +83,19 @@ public:
     virtual Coords inputCoordinates() = 0;
 
     /**
-     * @brief Member function that prints instructions of how to play the Battleships game, and use the program.
+     * @brief Member function used for getting the file path to the file containing saved game state.
+     * 
+     * @return std::string User input text.
+     */
+    virtual std::string inputPathFile() = 0;
+
+    /**
+     * @brief Member function that shows instructions of how to play the Battleships game, and use the program.
      */
     virtual void printInstructions() = 0;
 
     /**
-     * @brief Member function that prints rules of the Battleships game on screen.
+     * @brief Member function that shows rules of the Battleships game on screen.
      */
     virtual void printRules() = 0;
 
