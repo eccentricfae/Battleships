@@ -1,4 +1,7 @@
 # Battleships
+---
+edit: you ever look at your old code and think to yourself "ew, what is that? why did I write it in that way?"? Yeah, that's me looking at this repo, I'd like to rewrite it someday if I find the time, but for now let it be a time capsule reminding myself to always strive for improvement
+---
 Hi! This is a project written in C++ for one of my college classes, and we were supposed to pay heavy focus on OOP, polymorphism, templates, STL and good programming practices in general (like readability :)).
 
 Implemented in Windows console.
